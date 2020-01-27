@@ -1,0 +1,1 @@
+The group of projects are used to create custom command consoles for the Artemis Starship Bridge game.
