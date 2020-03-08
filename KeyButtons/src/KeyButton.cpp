@@ -6,18 +6,29 @@
 
 KeyButton::KeyButton(uint16_t code)
 :   keyCode(code)
+,	mod(0)
 {}
 
+KeyButton::KeyButton(uint16_t code, uint16_t modifier)
+:   keyCode(code)
+,	mod(modifier)
+{}
 
 void KeyButton::pressed() 
 {
-    //usb_keyboard_press_keycode(keyCode);
+	if(0 != mod)
+	{
+		Keyboard.press(mod);
+	}
     Keyboard.press(keyCode);
 
 }
 
 void KeyButton::released() 
 {
-    //usb_keyboard_release_keycode(keyCode);
+	if(0 != mod)
+	{
+		Keyboard.release(mod);
+	}
     Keyboard.release(keyCode);
 }

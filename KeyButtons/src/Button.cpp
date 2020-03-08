@@ -2,6 +2,13 @@
 #include "Button.h"
 
 
+Button::Button(uint8_t pinNumber, ButtonHandler* handler) 
+:   pin(pinNumber)
+,   mode(INPUT_PULLDOWN)
+,   state(LOW)
+{
+    handlers.push_back(handler);
+} 
 
 Button::Button(uint8_t pinNumber, uint8_t mode, ButtonHandler* handler) 
 :   pin(pinNumber)
@@ -22,19 +29,19 @@ void Button::update(){
     uint8_t curState = digitalRead(pin);
 
     if(curState != state){
-            if(curState == LOW && state == HIGH){
-                Serial.write("Button::update; Button Pressed");
-                for(auto* handler : handlers){
-                    handler->pressed();
-                }
-            }
-            else{
-                Serial.write("Button::update; Button Released");
-                for(auto* handler : handlers){
-                    handler->released();
-                }
-            }
-            state = curState;
+		if(curState == LOW && state == HIGH){
+			Serial.write("Button::update; Button Pressed");
+			for(auto* handler : handlers){
+				handler->pressed();
+			}
+		}
+		else{
+			Serial.write("Button::update; Button Released");
+			for(auto* handler : handlers){
+				handler->released();
+			}
+		}
+		state = curState;
     }
 }
 

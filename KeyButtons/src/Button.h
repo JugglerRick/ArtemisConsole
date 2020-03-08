@@ -5,6 +5,7 @@
 class Button
 {
 public:
+    Button(uint8_t pinNumber, ButtonHandler* handler);
     Button(uint8_t pinNumber, uint8_t mode, ButtonHandler* handler);
 
     void initialize();
